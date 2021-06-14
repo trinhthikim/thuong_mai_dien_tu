@@ -1,0 +1,13 @@
+#weather{
+    display:inline-flex;
+    color: #fff;
+    line-height: 20px;
+    /* background-color: aqua; */
+}
+#weather img{
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    width: auto;
+    height: 30px; 
+}

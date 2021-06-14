@@ -1,0 +1,35 @@
+<div id="weather">
+  
+</div>
+
+<script>
+require(['jquery', 'jquery/ui'], function($){ 
+    $(document).ready(function(){
+    var country = "VN";
+    var city = "Hanoi";
+    var img = "https://nnchillmp3.000webhostapp.com/rain.png";
+    var api_url = 'http://api.openweathermap.org/data/2.5/weather?q='+city+','+country+'&APPID=83367ebe1be34e9e489d95ab6b62d834';
+    var weather_data = fetch(api_url)
+    .then((response) => response.json())
+    .then(function(data){
+      var temp = Math.round((data['main']['temp'] - 273.15)*10)/10;
+      var status = data['weather'][0]['main'];
+      switch(status){
+        case "Rain":
+          img = "https://nnchillmp3.000webhostapp.com/rain.png";
+          break;
+        case "Clouds":
+          img = "https://nnchillmp3.000webhostapp.com/clouds.png";
+          break;
+        default:
+          img = "https://nnchillmp3.000webhostapp.com/clouds.png";
+          break;
+      }
+      
+      $('#weather').html( '<img src="'+img+'"/>'+'<span style="padding-left:60px;">' + status +'&emsp;'+temp+'&#176; C</span>');
+    });
+    }); 
+});  
+</script>
+<!-- {{block class="Lesson\HelloMagento\Block\Index" template="Lesson_HelloMagento::hello.phtml"}} -->
+

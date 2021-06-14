@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<widgets xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<widget id="news_Economic_index" class="News\Economic\Block\Index">
+    <label>News Widget</label>
+    <description>Tin tức kinh doanh</description>
+</widget>
+</widgets>

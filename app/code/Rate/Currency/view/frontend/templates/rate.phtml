@@ -1,0 +1,62 @@
+<?php
+    $xml=simplexml_load_file("https://portal.vietcombank.com.vn/Usercontrols/TVPortal.TyGia/pXML.aspx?b=68") or die("Error: Cannot create object");
+
+?>
+<head>
+    <link rel="../web/css/currency.css" href="style.css">
+</head>
+<table class="rateTable" id="currency" cellspacing="1" border="1">
+        <tbody>
+            <tr >
+                <th colspan="2" >Ngoại tệ</th>
+                <th colspan="2" >Mua
+                </th> 
+                <th rowspan="2" style="line-height: 50px;">
+                Bán
+                </th>
+            </tr>
+            <tr >
+                <th style="width:25%;">Tên ngoại tệ</th>
+                <th>
+                    Mã NT
+                </th>
+                <th style="width: 20%;">Tiền mặt</th>
+                <th style="width: 20%;">Chuyển khoản</th>
+            </tr>
+            
+            <?php  foreach($xml->Exrate as $item){ ?>
+                <tr>
+                <td>
+                <?php echo $item['CurrencyName'] ?>
+                </td>
+                <td>
+                <?php echo $item['CurrencyCode'] ?>
+                </td>
+                <td>
+                <?php echo $item['Buy'] ?>
+                </td>
+                <td>
+                <?php echo $item['Transfer'] ?>
+                </td>
+                <td>
+                <?php echo $item['Sell'] ?>
+                </td>
+                </tr>
+            <?php } ?>
+            <!-- <tr >
+                <td style="text-align:left;"> AUSTRALIAN DOLLAR   </td>
+                <td style="text-align:center;">AUD</td>
+                <td>17,435.45 </td>
+                <td>17,611.57</td>
+                <td>18,163.72</td>
+            </tr>
+            
+            <tr >
+                <td style="text-align:left;"> CANADIAN DOLLAR     </td>
+                <td style="text-align:center;">CAD</td>
+                <td>18,645.34 </td>
+                <td>18,833.68</td>
+                <td>19,424.14</td>
+            </tr> -->
+        </tbody>
+    </table>

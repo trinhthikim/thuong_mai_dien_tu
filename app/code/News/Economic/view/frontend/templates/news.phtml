@@ -1,0 +1,30 @@
+
+<body>
+<?php
+header('Content-type:text/html;charset=utf-8');
+
+$data_xml = simplexml_load_file('https://vnexpress.net/rss/kinh-doanh.rss');
+$channel = $data_xml->channel;
+?>
+
+
+<div class="container">
+<?php foreach($channel->item as $item){ ?>  
+  <div class="card">
+      <div class="h"><?php echo $item->title; ?></div>
+      <div class="content">
+          <?php echo $item->description; ?>
+      </div>
+      <div class="time"><?php echo $item->pubDate; ?></div>
+      <br>
+      <a href="<?php echo $item->link; ?>" ><button class="more">xem thêm &#187;</button></a>
+  </div>
+<?php } ?>
+</div> 
+
+</body>
+
+
+
+
+

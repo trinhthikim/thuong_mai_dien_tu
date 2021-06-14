@@ -1,0 +1,14 @@
+table{
+    width: 900px;
+    margin: auto;
+    border: 1px solid #ddd;
+}
+td, th{
+    border: 1px solid #ddd;
+}
+th{
+    text-align: center !important;
+    color: #fff;
+    background-color: #04AA6D;
+}
+tr:nth-child(even){background-color: #f2f2f2;}

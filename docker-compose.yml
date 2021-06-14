@@ -1,0 +1,97 @@
+# version: '2'
+# services:
+#     nginx:
+#         depends_on: 
+#             - phpfpm
+#         image: nginx:1.18
+#         ports: 
+#             - "81:81"
+#         restart: always
+#         volumes: 
+#             # - .:/var/www/html
+#             - ./docker/nginx/default.conf:/etc/nginx/sites-available/default.conf
+#             - ./docker/nginx/default.conf:/etc/nginx/sites-enabled/default.conf
+#             - ./docker/nginx/log/nginx-access.log:/var/log/nginx/access.log
+#             - ./docker/nginx/log/nginx-error.log:/var/log/nginx/error.log
+#         links: 
+#             - phpfpm
+#     phpfpm:
+#         image: php:7.4-fpm
+#         restart: always
+#         working_dir: /var/www/html
+#         ports: 
+#             - "9001:9001"
+#         volumes: 
+#             # - .:/var/www/html
+#             # - ./docker/php_fpm:/etc/php/7.4/fpm
+#             - ./docker/php:/usr/share/nginx/html
+#     elasticsearch:
+#         image: docker.elastic.co/elasticsearch/elasticsearch:7.13.1
+#         container_name: elasticsearch
+#         environment:
+#             - cluster.name=docker-cluster
+#             - bootstrap.memory_lock=true
+#             - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+#         ulimits: 
+#             memlock:
+#                 soft: -1
+#                 hard: -1
+#         volumes: 
+#             - ./docker/elasticsearch:/usr/share/elasticsearch/
+#         ports:
+#             - "9200:9200"
+
+version: '3'
+services:
+    web:
+        image: webdevops/php-apache-dev:ubuntu-16.04
+        container_name: web
+        restart: always
+        user: application
+        environment:
+          - WEB_ALIAS_DOMAIN=localhost
+          - WEB_DOCUMENT_ROOT=/app/pub
+          - PHP_DATE_TIMEZONE=EST
+          - PHP_DISPLAY_ERRORS=1
+          - PHP_MEMORY_LIMIT=2048M
+          - PHP_MAX_EXECUTION_TIME=300
+          - PHP_POST_MAX_SIZE=500M
+          - PHP_UPLOAD_MAX_FILESIZE=1024M
+        volumes:
+          - /var/www/html/magento:/app:cached
+        ports:
+          - "81:81"
+          - "443:443"
+          - "32823:22"
+        links:
+          - mysql
+    mysql:
+        image: mariadb:10
+        container_name: mysql
+        restart: always
+        ports:
+          - "3308:3308"
+        environment:
+          - MYSQL_ROOT_PASSWORD=05052000
+          - MYSQL_DATABASE=magento2
+        volumes:
+          - db-data:/var/lib/mysql
+    phpmyadmin:
+        container_name: phpmyadmin
+        restart: always
+        image: phpmyadmin/phpmyadmin:latest
+        environment:
+          - MYSQL_ROOT_PASSWORD=05052000
+          - PMA_USER=trinhthikim
+          - PMA_PASSWORD=05052000
+        ports:
+          - "8081:81"
+        links:
+          - mysql:db
+        depends_on:
+          - mysql
+volumes:
+    db-data:
+        external: false
+
+

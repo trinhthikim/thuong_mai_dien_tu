@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+   
+    <head>
+      <css src="Lesson_HelloMagento::css/weather.css" rel="stylesheet" type="text/css"  />
+    </head>
+    
+    <body>
+        <!-- <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.sku" template="Magento_Catalog::product/view/attribute.phtml" after="product.info.type">
+          <arguments>
+            <argument name="at_call" xsi:type="string">getSku</argument>
+            <argument name="at_code" xsi:type="string">sku</argument>
+            <argument name="css_class" xsi:type="string">sku</argument>
+          </arguments>
+        </block> -->
+        <referenceContainer name="content">
+          <block class="Lesson\HelloMagento\Block\Index" name="hello_index_index" template="Lesson_HelloMagento::hello.phtml"/>
+        </referenceContainer>
+    </body>
+
+</page>
+
